@@ -12,6 +12,11 @@ def function(directory, new_derictory):
             else:
                 shutil.copy(directory + file_name, new_folder + "\\" + file_name)
 
+
+def sorting_from_to(from_dir, to_dir, dirs_n_extens):
+    pass
+
+
 if __name__ == '__main__':
     directory = "E:\\code\\sort_folders\\foto-filtry-nordfil\\"
     new_directory = "E:\\code\\sort_folders\\foto-filtry-nordfil-go\\"
