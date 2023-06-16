@@ -5,6 +5,9 @@ import unittest
 
 from functions import sorting_from_to
 
+msg_number_of_files_changed = """\
+Number of files was change!
+"""
 msg_not_all_sortered = """\
 Not all files sortered!
 """
@@ -38,6 +41,9 @@ class TestingSorted(unittest.TestCase):
         file_names = ("file.txt", "file.jpg")
         for file_name in file_names:
             with open(os.path.join(dir_dirty, file_name), "w"): pass
+        number_files_before_sorting = 0
+        for root, dirs, files in os.walk(os.getcwd()):
+            number_files_before_sorting += len(files)
         # запускаем сортировку
         dirs_n_extens = (
             {"dirname": "pictures", "extensions": ["jpg"]},
@@ -49,6 +55,13 @@ class TestingSorted(unittest.TestCase):
         for dir_n_extens in dirs_n_extens:
             all_dirnames.append(dir_n_extens["dirname"])
             all_extensions += dir_n_extens["extensions"]
+        # количество файлов не должно измениться, если изменилось, значит
+        # созданы лишние файлы или файлы потеряны
+        number_files_after_sorting = 0
+        for root, dirs, files in os.walk(os.getcwd()):
+            number_files_after_sorting += len(files)
+        self.assertEqual(number_files_before_sorting, 
+            number_files_after_sorting, msg_number_of_files_changed)
         # в папках для сортировки должны быть только файлы указанных
         # расширений
         for dir_n_extens in dirs_n_extens:
