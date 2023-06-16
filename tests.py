@@ -74,17 +74,13 @@ class TestingSorted(unittest.TestCase):
         # в папках для сортировки должны быть только файлы указанных
         # расширений
         for dir_n_extens in dirs_n_extens:
-            # print(f"dir_n_extens: {dir_n_extens}")
             dirname = os.path.join(dir_clean, dir_n_extens["dirname"])
-            # print(f"dirname: {dirname}")
             if not os.path.exists(dirname):
                 continue
             for file in os.listdir(dirname):
-                # print(f"file 1: {file}")
                 filename = os.path.join(dirname, file)
                 if not os.path.isfile(filename):
                     continue
-                # print(f"file 2: {filename}")
                 extensions = dir_n_extens["extensions"]
                 file_extension = filename.rsplit(".", 1)[-1]
                 self.assertIn(file_extension, extensions,
@@ -95,24 +91,6 @@ class TestingSorted(unittest.TestCase):
         self.assertEqual(num_files_before, num_files_after, 
             _sorting_error_msg("Number of files was changed",
                 paths_before, paths_after))
-
-def sorting_from_to(dir1, dir2, dirs_n_extens):
-    os.mkdir(os.path.join(dir2, "pictures"))
-    os.mkdir(os.path.join(dir2, "text_files"))
-    filename1 = os.path.join(dir2, "pictures/file.jpg")
-    filename2 = os.path.join(dir2, "text_files/file.txt")
-    # filename2 = os.path.join(dir2, "pictures/file.txt")
-    filename3 = os.path.join(dir2, "text_files/file1.txt")
-    open(filename1, "w").close()
-    open(filename2, "w").close()
-    open(filename3, "w").close()
-    #
-    old_filename1 = os.path.join(dir1, "file.jpg")
-    old_filename2 = os.path.join(dir1, "file.txt")
-    os.remove(old_filename1)
-    os.remove(old_filename2)
-    # shutil.rmtree(os.path.join(dir2, "pictures"))
-    pass
 
 
 if __name__ == '__main__':

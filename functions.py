@@ -31,4 +31,3 @@ if __name__ == '__main__':
     directory = "E:\\code\\sort_folders\\foto-filtry-nordfil\\"
     new_directory = "E:\\code\\sort_folders\\foto-filtry-nordfil-go\\"
     function(directory, new_directory)
-    print(get_all_paths(r"D:\files - копия (2)"))
