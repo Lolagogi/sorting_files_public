@@ -17,8 +17,8 @@ def function(directory, new_derictory):
 
 
 def sorting_from_to(from_dir, to_dir, dirs_n_extens, subdirs=False):
-    """Сортируем файлы в папки с указанными для этиз папок расширениями
-        полные пути к папкам:
+    """Сортируем файлы в папки с указанными для этиx папок расширениями
+        пути к папкам должны быть полными (абсолютными):
         from_dir - папка с неотсортированными файлами
         to_dir - папка куда нужно сортировать
         dirs_n_extens - правила сортировки
@@ -47,20 +47,13 @@ def sorting_from_to(from_dir, to_dir, dirs_n_extens, subdirs=False):
                 dirname = os.path.join(to_dir, dir_n_extens["dirname"])
                 if not os.path.exists(dirname):
                     os.mkdir(dirname)
-                new_filename = get_new_filename(filename, dirname)
+                file = os.path.basename(filename)
+                new_filename = os.path.join(dirname, file)
                 old_new_filenames.append((filename, new_filename))
-                # print((filename, new_filename))
     # копируем файл в новое место, и удаляем файл из старого места
     for old_filename, new_filename in old_new_filenames:
         shutil.copy(old_filename, new_filename)
         os.remove(old_filename)
-    # pprint(vars())
-
-
-def get_new_filename(filename, dirname):
-    """Создаём новое полное имя для файла, для указанной директории"""
-    file = os.path.basename(filename)
-    return os.path.join(dirname, file)
 
 
 def get_all_paths(dirname):
@@ -78,12 +71,3 @@ if __name__ == '__main__':
     directory = "E:\\code\\sort_folders\\foto-filtry-nordfil\\"
     new_directory = "E:\\code\\sort_folders\\foto-filtry-nordfil-go\\"
     # function(directory, new_directory)
-    dirs_n_extens = (
-        {"dirname": "docs", "extensions": ["docx"]},
-        {"dirname": "pictures", "extensions": ["jpg"]},
-        )
-    dir_dirty = r"D:\dir_dirty"
-    dir_clean = r"D:\dir_clean"
-    sorting_from_to(dir_dirty, dir_clean, dirs_n_extens, True)
-    # res = get_new_filename((r"D:\dir_dirty\f1.docx", dir_clean))
-    # print(f"get_new_filename(): {res}")
