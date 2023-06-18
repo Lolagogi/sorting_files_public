@@ -19,35 +19,32 @@ class SortingFrame(ttk.Frame):
         # поля ввода для директорий
         var_str_input_folder = tkinter.StringVar()
         var_str_output_folder = tkinter.StringVar()
-        self.entry_input_folder = ttk.Entry(self, width=40,
+        self.ent_inp_dir = ttk.Entry(self, width=40,
             textvariable=var_str_input_folder)
-        self.entry_output_folder = ttk.Entry(self, width=40,
+        self.ent_outp_dir = ttk.Entry(self, width=40,
             textvariable=var_str_output_folder)
-        self.entry_input_folder.grid(in_=self, row=0, column=1)
-        self.entry_output_folder.grid(in_=self, row=1, column=1)
+        self.ent_inp_dir.grid(in_=self, row=0, column=1)
+        self.ent_outp_dir.grid(in_=self, row=1, column=1)
         # кнопки для просмотра директории
-        self.button_browse_input = ttk.Button(self, text="browse...")
-        self.button_browse_output = ttk.Button(self, text="browse...")
-        self.button_browse_input.entry = self.entry_input_folder
-        self.button_browse_output.entry = self.entry_output_folder
-        self.button_browse_input.bind("<1>", self.chose_folder)
-        self.button_browse_output.bind("<1>", self.chose_folder)
-        self.button_browse_input.grid(in_=self, row=0, column=2)
-        self.button_browse_output.grid(in_=self, row=1, column=2)
-        # self.entry_input_folder.pack(in_=self)
-        # self.entry_output_folder.pack(in_=self)
+        self.btn_brws_inp = ttk.Button(self, text="browse...")
+        self.btn_brws_outp = ttk.Button(self, text="browse...")
+        self.btn_brws_inp["command"] = \
+            lambda : self.chose_directory(self.ent_inp_dir)
+        self.btn_brws_outp["command"] = \
+            lambda : self.chose_directory(self.ent_outp_dir)
+        self.btn_brws_inp.grid(in_=self, row=0, column=2)
+        self.btn_brws_outp.grid(in_=self, row=1, column=2)
+        # self.ent_inp_dir.pack(in_=self)
+        # self.ent_outp_dir.pack(in_=self)
         self.button_sort = ttk.Button(self, text="sort")
         self.button_sort.grid(in_=self, row=3, column=3)
         # self.button_sort.pack(in_=self)
 
-    def chose_folder(self, event):
-        widget = event.widget
-        entry = widget.entry
+    def chose_directory(self, entry):
         directory = filedialog.askdirectory()
         if os.path.isdir(directory):
             entry.delete(0, tkinter.END)
             entry.insert(0, directory)
-
 
 
 if __name__ == '__main__':
