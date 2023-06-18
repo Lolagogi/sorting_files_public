@@ -3,6 +3,8 @@ import tkinter
 import tkinter.filedialog as filedialog
 from tkinter import ttk
 
+from frame_sorting_rules import FrameSortingRules
+
 
 class SortingFrame(ttk.Frame):
 
@@ -33,6 +35,11 @@ class SortingFrame(ttk.Frame):
             lambda : self.chose_directory(self.ent_outp_dir)
         # кнопка для запуска сортировки
         self.button_sort = ttk.Button(self, text="sort")
+        # рамка с правилами сортировки
+        self.frm_srt_rls = FrameSortingRules(self, width=100, height=50)
+        # кнопка для добавления правила для сортировки
+        self.btn_add_srt_rl = ttk.Button(self, text="add sorting rule")
+
 
     def pack_widgets(self):
         """Упаковываем виджеты"""
@@ -44,6 +51,9 @@ class SortingFrame(ttk.Frame):
         self.ent_outp_dir.grid(in_=self.frm_chose_paths, row=1, column=1)
         self.btn_brws_inp.grid(in_=self.frm_chose_paths, row=0, column=2)
         self.btn_brws_outp.grid(in_=self.frm_chose_paths, row=1, column=2)
+        # 
+        self.frm_srt_rls.pack(in_=self)
+        self.btn_add_srt_rl.pack(in_=self)
         # упаковываем кнопку для сортировки
         self.button_sort.pack(in_=self, anchor="se", side="bottom")
 
@@ -52,6 +62,11 @@ class SortingFrame(ttk.Frame):
         if os.path.isdir(directory):
             entry.delete(0, tkinter.END)
             entry.insert(0, directory)
+
+    def add_sorting_rule(self):
+        wnd_ask_srt_rule = tkinter.Toplevel(self)
+        # wnd_ask_srt_rule.wait_window(
+        pass
 
 
 if __name__ == '__main__':
