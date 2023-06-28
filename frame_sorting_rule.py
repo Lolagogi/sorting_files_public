@@ -27,7 +27,8 @@ class FrameSortingRule(ttk.Frame):
         dir_n_extens = {}
         dir_n_extens["dirname"] = self.ent_folder_name.get()
         dir_n_extens["extensions"] = self.ent_extensions.get()
-        return dir_n_extens
+        if all(dir_n_extens.values()): 
+            return dir_n_extens
 
 if __name__ == '__main__':
     root = tkinter.Tk()

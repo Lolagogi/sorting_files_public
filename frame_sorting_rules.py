@@ -24,14 +24,6 @@ class FrameSortingRules(ttk.Frame):
         # Привязываем событие - срабатывает при изменении параметров
         # "холста" (то же не знаю что делает)
         self.frame.bind("<Configure>", self.on_frame_configure)
-        # виджеты для отображения столбцов
-        # self.lbl_row_dirname = ttk.Label(self.frame, text="dirname")
-        # self.lbl_row_extensions = ttk.Label(self.frame, text="extensions")
-        # # self.lbl_row_dirname.grid(in_=self.frame, sticky="nsew")
-        # # self.lbl_row_extensions.grid(in_=self.frame, sticky="nsew")
-        # first_row = (self.lbl_row_dirname, self.lbl_row_extensions)
-        # for column, widget in enumerate(first_row):
-        #     widget.grid(in_=self.frame, row=1, column=column, sticky="nsew")
 
     def on_frame_configure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
@@ -48,6 +40,14 @@ class FrameSortingRules(ttk.Frame):
         frm_srt_rl.pack_forget()
         self.frms_sorting_rules.remove(frm_srt_rl)
 
+    def get_sorting_rules(self):
+        sorting_rules = []
+        for frm_srt_rl  in self.frms_sorting_rules:
+            sorting_rule = frm_srt_rl.get_sorting_rule()
+            if sorting_rule: 
+                sorting_rules.append(sorting_rule)
+        return sorting_rules
+
 
 if __name__ == '__main__':
     root = tkinter.Tk()
@@ -57,4 +57,11 @@ if __name__ == '__main__':
     # for i in range(20):
     #     btn_1 = ttk.Button(frm_srt_rls, text="btn_1")
     #     btn_1.pack(in_=frm_srt_rls.frame)
+    btn_add = ttk.Button(text="add", command=frm_srt_rls.add_sorting_rule)
+    btn_add.pack()
+    btn_del = ttk.Button(text="del", command=frm_srt_rls.del_sorting_rule)
+    btn_del.pack()
+    btn_get = ttk.Button(text="get", command=lambda : 
+        print(frm_srt_rls.get_sorting_rules()))
+    btn_get.pack()
     pass
