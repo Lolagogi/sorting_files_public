@@ -40,7 +40,11 @@ class SortingFrame(ttk.Frame):
         # кнопка для добавления правила для сортировки
         self.btn_add_srt_rl = ttk.Button(self, text="add sorting rule")
         self.btn_add_srt_rl["command"] = self.add_sorting_rule
-
+        # флаг поиска в подпапках
+        self.bvar_subdirs = tkinter.BooleanVar(value=False)
+        self.chkbtn_subdirs = ttk.Checkbutton(self, 
+            variable=self.bvar_subdirs, 
+            text="сортировать файлы в подпапках")
 
     def pack_widgets(self):
         """Упаковываем виджеты"""
@@ -55,6 +59,7 @@ class SortingFrame(ttk.Frame):
         # рамка для правил сортировки, и кнопка добавления правила
         self.frm_srt_rls.pack(in_=self)
         self.btn_add_srt_rl.pack(in_=self)
+        self.chkbtn_subdirs.pack(anchor="w", side="left")
         # упаковываем кнопку для сортировки
         self.button_sort.pack(in_=self, anchor="se", side="bottom")
 
