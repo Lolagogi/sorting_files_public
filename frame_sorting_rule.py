@@ -1,5 +1,6 @@
 import tkinter
 from tkinter import ttk
+import re
 
 
 class FrameSortingRule(ttk.Frame):
@@ -26,7 +27,8 @@ class FrameSortingRule(ttk.Frame):
     def get_sorting_rule(self):
         dir_n_extens = {}
         dir_n_extens["dirname"] = self.ent_folder_name.get()
-        dir_n_extens["extensions"] = self.ent_extensions.get()
+        extensions = re.findall(r"(?<=.)?\w+", self.ent_extensions.get())
+        dir_n_extens["extensions"] = extensions
         if all(dir_n_extens.values()): 
             return dir_n_extens
 
