@@ -2,8 +2,10 @@ import os.path
 import tkinter 
 import tkinter.filedialog as filedialog
 from tkinter import ttk
+from tkinter import messagebox
 
 from frame_sorting_rules import FrameSortingRules
+from functions import sorting_from_to
 
 
 class SortingFrame(ttk.Frame):
@@ -35,6 +37,7 @@ class SortingFrame(ttk.Frame):
             lambda : self.chose_directory(self.ent_outp_dir)
         # кнопка для запуска сортировки
         self.button_sort = ttk.Button(self, text="sort")
+        self.button_sort["command"] = self.do_sorting
         # рамка с правилами сортировки
         self.frm_srt_rls = FrameSortingRules(self, width=100, height=50)
         # кнопка для добавления правила для сортировки
@@ -71,6 +74,20 @@ class SortingFrame(ttk.Frame):
 
     def add_sorting_rule(self):
         self.frm_srt_rls.add_sorting_rule()
+
+    def do_sorting(self):
+        from_dir = self.ent_inp_dir.get()
+        to_dir = self.ent_outp_dir.get()
+        dirs_n_extens = self.frm_srt_rls.get_sorting_rules()
+        subdirs = self.bvar_subdirs.get()
+        try:
+            sorting_from_to(from_dir, to_dir, dirs_n_extens, subdirs)
+        # если возникло исключение, поднимаем его выше
+        except:
+            messagebox.showerror(message="Error")
+            raise
+        else:
+            messagebox.showinfo(message="sorting is sucessfull")
 
 
 if __name__ == '__main__':
