@@ -28,6 +28,7 @@ class FrameSortingRule(ttk.Frame):
         dir_n_extens = {}
         dir_n_extens["dirname"] = self.ent_folder_name.get()
         extensions = re.findall(r"(?<=.)?\w+", self.ent_extensions.get())
+        extensions = list(map(str.lower, extensions))
         dir_n_extens["extensions"] = extensions
         if all(dir_n_extens.values()): 
             return dir_n_extens

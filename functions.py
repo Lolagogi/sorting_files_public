@@ -32,7 +32,7 @@ def sorting_from_to(from_dir, to_dir, dirs_n_extens, subdirs=False):
     for root, dirs, files in os.walk(from_dir):
         for file in files:
             filename = os.path.join(root, file)
-            file_extension = filename.rsplit(".", 1)[-1]
+            file_extension = filename.rsplit(".", 1)[-1].lower()
             if file_extension in all_extensions:
                 filenames_for_sorting.append(filename)
         # не собираем файлы из подпапок если это не нужно
@@ -42,7 +42,7 @@ def sorting_from_to(from_dir, to_dir, dirs_n_extens, subdirs=False):
     old_new_filenames = []
     for filename in filenames_for_sorting:
         for dir_n_extens in dirs_n_extens:
-            file_extension = filename.rsplit(".", 1)[-1]
+            file_extension = filename.rsplit(".", 1)[-1].lower()
             if file_extension in dir_n_extens["extensions"]:
                 dirname = os.path.join(to_dir, dir_n_extens["dirname"])
                 if not os.path.exists(dirname):

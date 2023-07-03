@@ -76,7 +76,7 @@ class TestingSorted(unittest.TestCase):
         for file in os.listdir(dir_dirty):
             if not os.path.isfile(os.path.join(dir_dirty, file)):
                 continue
-            file_extension = file.rsplit(".", 1)[-1]
+            file_extension = file.rsplit(".", 1)[-1].lower()
             self.assertNotIn(file_extension, all_extensions, 
                 _sorting_error_msg("Not all files sortered!",
                         paths_before, paths_after))
@@ -91,7 +91,7 @@ class TestingSorted(unittest.TestCase):
                 if not os.path.isfile(filename):
                     continue
                 extensions = dir_n_extens["extensions"]
-                file_extension = filename.rsplit(".", 1)[-1]
+                file_extension = filename.rsplit(".", 1)[-1].lower()
                 self.assertIn(file_extension, extensions,
                     _sorting_error_msg("Wrong file extension in directory",
                         paths_before, paths_after))
