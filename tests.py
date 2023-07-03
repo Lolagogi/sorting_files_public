@@ -36,9 +36,16 @@ class TestingSorted(unittest.TestCase):
         # создаём директории и файлы для сортировки
         dir_dirty = os.path.join(os.getcwd(), self.dir_for_testing, "dirty")
         dir_clean = os.path.join(os.getcwd(), self.dir_for_testing, "clean")
+        subdir = os.path.join(dir_dirty, "subdir")
         os.mkdir(dir_dirty)
         os.mkdir(dir_clean)
-        file_names = ("file.txt", "file.jpg")
+        os.mkdir(subdir)
+        file_names = (
+            "file.txt", "file.jpg", # обычные файлы
+            "file1.JPG", # файл расшширение которого в верхнем регистре
+            "FiLe2.jpg", # симовлы в разном регистре
+            r"subdir\in_folder.txt", # файл в подпапке
+        )
         for file_name in file_names:
             with open(os.path.join(dir_dirty, file_name), "w"): pass
         # пути объектов и количество файлов ДО сортировки
@@ -51,7 +58,9 @@ class TestingSorted(unittest.TestCase):
             {"dirname": "pictures", "extensions": ["jpg"]},
             {"dirname": "text_files", "extensions": ["txt"]},
             )
-        sorting_from_to(dir_dirty, dir_clean, dirs_n_extens)
+        sorting_from_to(
+            from_dir=dir_dirty, to_dir=dir_clean, 
+            dirs_n_extens=dirs_n_extens, subdirs=True)
         # пути объектов и количество файлов ПОСЛЕ сортировки
         paths_after = get_all_paths(self.dir_for_testing)
         num_files_after = 0
